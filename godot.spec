@@ -124,7 +124,7 @@ Use the upstream templates (less secure but more portable) if need be.
 
 %prep
 %setup -q -n %{name}-%{version}-%{versuff} -a1
-%apply_patches
+%autopatch -p1
 
 %build
 export BUILD_REVISION="openmandriva"
