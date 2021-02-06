@@ -3,18 +3,17 @@
 
 %define bits    %{__isa_bits}
 %define versuff stable
+%define demoversion 3.2-57baf0a
 
 Name:           godot
-Version:        2.1
+Version:        3.2.3
 Release:        1
 Summary:        Multi-platform 2D and 3D game engine with a feature rich editor
 Group:          Development/Tools
 License:        MIT
 URL:            https://godotengine.org
 Source0:        https://github.com/godotengine/godot/archive/%{version}-%{versuff}/%{name}-%{version}-%{versuff}.tar.gz
-Source1:        https://github.com/godotengine/godot-demo-projects/archive/%{mainver}/godot-demo-projects-%{version}.tar.gz
-
-ExclusiveArch:  %ix86 x86_64
+Source1:        https://github.com/godotengine/godot-demo-projects/archive/%{demoversion}/godot-demo-projects-%{version}.tar.gz
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(freetype2)
@@ -48,7 +47,7 @@ license. No strings attached, no royalties, nothing. Your game is yours,
 down to the last line of engine code.
 
 %files
-%doc LICENSE.md README.md
+%doc README.md
 %{_bindir}/%{name}
 %if %{with templates}
 %dir %{_libexecdir}/%{name}
@@ -97,7 +96,7 @@ which can be used to run any game developed with the Godot engine simply
 by pointing to the location of the game's data package.
 
 %files          runner
-%doc LICENSE.md README.md
+%doc README.md
 %{_bindir}/%{name}-runner
 
 #----------------------------------------------------------------------
@@ -131,40 +130,40 @@ export BUILD_REVISION="openmandriva"
 
 %define common_flags CCFLAGS="%{optflags}" CFLAGS="%{optflags}" LINKFLAGS="%{ldflags}" builtin_zlib=no
 %define other_flags colored=yes platform=x11 freetype=yes openssl=yes png=yes pulseaudio=yes theora=yes udev=yes use_llvm=yes vorbis=yes xml=yes
-%define _scons %scons %common_flags CC=%{__cc} CXX=%{__cxx} %other_flags
+%define _scons %scons %common_flags CC=%{__cc} CXX=%{__cxx} %other_flags %{?_smp_mflags}
 
 %if %{with server}
 # Build headless version of the editor
-%_scons p=server tools=yes target=release_debug unix_global_settings_path=%{_libexecdir}/%{name}
+%_scons platform=server tools=yes target=release_debug unix_global_settings_path=%{_libexecdir}/%{name}
 %endif
 
 # Build graphical editor (tools)
-%_scons p=x11 tools=yes target=release_debug unix_global_settings_path=%{_libexecdir}/%{name}
+%_scons platform=x11 tools=yes target=release_debug unix_global_settings_path=%{_libexecdir}/%{name}
 
 # Build game runner (without tools)
-%_scons p=x11 tools=no target=release
-cp bin/%{name}.x11.opt.%{bits} bin/%{name}.x11.opt.runner.%{bits}
+%_scons platform=x11 tools=no target=release
+cp bin/%{name}.x11.opt.%{bits}.llvm bin/%{name}.x11.opt.runner.%{bits}.llvm
 
 %if %{with templates}
 # Build Linux export templates for the current arch
 # (akien) The binaries won't run on Fedora due to their breakage of
 # OpenSSL's soname: https://github.com/godotengine/godot/issues/1391
 # but I don't want to distribute them statically linked against OpenSSL
-%_scons p=x11 tools=no target=release
-%_scons p=x11 tools=no target=release_debug CCFLAGS= CFLAGS=
+%_scons platform=x11 tools=no target=release
+%_scons platform=x11 tools=no target=release_debug CCFLAGS= CFLAGS=
 
 # Rename templates
 mkdir -p templates
-mv bin/%{name}.x11.opt.%{bits} templates/linux_x11_%{bits}_release
-mv bin/%{name}.x11.opt.debug.%{bits} templates/linux_x11_%{bits}_debug
+mv bin/%{name}.x11.opt.%{bits}.llvm templates/linux_x11_%{bits}_release
+mv bin/%{name}.x11.opt.debug.%{bits}.llvm templates/linux_x11_%{bits}_debug
 %endif
 
 %install
 install -d %{buildroot}%{_bindir}
-install -m755 bin/%{name}.x11.opt.tools.%{bits}           %{buildroot}%{_bindir}/%{name}
-install -m755 bin/%{name}.x11.opt.runner.%{bits}          %{buildroot}%{_bindir}/%{name}-runner
+install -m755 bin/%{name}.x11.opt.tools.%{bits}.llvm           %{buildroot}%{_bindir}/%{name}
+install -m755 bin/%{name}.x11.opt.runner.%{bits}.llvm          %{buildroot}%{_bindir}/%{name}-runner
 %if %{with server}
-install -m755 bin/%{name}_server.server.opt.tools.%{bits} %{buildroot}%{_bindir}/%{name}-server
+install -m755 bin/%{name}_server.x11.opt.tools.%{bits}.llvm %{buildroot}%{_bindir}/%{name}-server
 %endif
 
 %if %{with templates}
@@ -173,7 +172,7 @@ cp -a templates/* %{buildroot}%{_libexecdir}/%{name}/templates/
 %endif
 
 install -d %{buildroot}%{_datadir}/%{name}
-cp -a godot-demo-projects-%{version} %{buildroot}%{_datadir}/%{name}/demos
+cp -a godot-demo-projects-%{demoversion} %{buildroot}%{_datadir}/%{name}/demos
 
 install -D -m644 icon.svg \
     %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
