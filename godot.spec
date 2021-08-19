@@ -13,7 +13,7 @@ Group:          Development/Tools
 License:        MIT
 URL:            https://godotengine.org
 Source0:        https://github.com/godotengine/godot/archive/%{version}-%{versuff}/%{name}-%{version}-%{versuff}.tar.gz
-Source1:        https://github.com/godotengine/godot-demo-projects/archive/%{demoversion}/godot-demo-projects-%{version}.tar.gz
+Source1:        https://github.com/godotengine/godot-demo-projects/archive/%{demoversion}/godot-demo-projects-%{demoversion}.tar.gz
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(freetype2)
