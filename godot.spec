@@ -15,6 +15,10 @@ URL:            https://godotengine.org
 Source0:        https://github.com/godotengine/godot/archive/%{version}-%{versuff}/%{name}-%{version}-%{versuff}.tar.gz
 Source1:        https://github.com/godotengine/godot-demo-projects/archive/%{demoversion}/godot-demo-projects-%{demoversion}.tar.gz
 
+BuildRequires:  atomic-devel
+BuildRequires:  stdc++-devel
+BuildRequires:  stdc++-static-devel
+BuildRequires:  scons
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gl)
@@ -28,7 +32,6 @@ BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xinerama)
 BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  scons
 Recommends:     %{name}-demos
 
 %if %{with templates}
