@@ -16,6 +16,7 @@ Source0:        https://github.com/godotengine/godot/archive/%{version}-%{versuf
 Source1:        https://github.com/godotengine/godot-demo-projects/archive/%{demoversion}/godot-demo-projects-%{demoversion}.tar.gz
 
 BuildRequires:  atomic-devel
+BuildRequires:  lib64atomic-static-devel
 BuildRequires:  stdc++-devel
 BuildRequires:  stdc++-static-devel
 BuildRequires:  scons
