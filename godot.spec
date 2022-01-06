@@ -3,18 +3,23 @@
 
 %define bits    %{__isa_bits}
 %define versuff stable
-%define demoversion 3.2-57baf0a
+%define demoversion 3.4-585455e
 
 Name:           godot
-Version:        3.2.3
+Version:        3.4.2
 Release:        1
 Summary:        Multi-platform 2D and 3D game engine with a feature rich editor
 Group:          Development/Tools
 License:        MIT
 URL:            https://godotengine.org
 Source0:        https://github.com/godotengine/godot/archive/%{version}-%{versuff}/%{name}-%{version}-%{versuff}.tar.gz
-Source1:        https://github.com/godotengine/godot-demo-projects/archive/%{demoversion}/godot-demo-projects-%{version}.tar.gz
+Source1:        https://github.com/godotengine/godot-demo-projects/archive/%{demoversion}/godot-demo-projects-%{demoversion}.tar.gz
 
+BuildRequires:  atomic-devel
+BuildRequires:  lib64atomic-static-devel
+BuildRequires:  stdc++-devel
+BuildRequires:  stdc++-static-devel
+BuildRequires:  scons
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gl)
@@ -28,7 +33,6 @@ BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xinerama)
 BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  scons
 Recommends:     %{name}-demos
 
 %if %{with templates}
