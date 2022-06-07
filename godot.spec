@@ -3,10 +3,10 @@
 
 %define bits    %{__isa_bits}
 %define versuff stable
-%define demoversion 3.4-585455e
+%define demoversion 3.4-b0d4a7c
 
 Name:           godot
-Version:        3.4.2
+Version:        3.4.4
 Release:        1
 Summary:        Multi-platform 2D and 3D game engine with a feature rich editor
 Group:          Development/Tools
@@ -16,6 +16,7 @@ Source0:        https://github.com/godotengine/godot/archive/%{version}-%{versuf
 Source1:        https://github.com/godotengine/godot-demo-projects/archive/%{demoversion}/godot-demo-projects-%{demoversion}.tar.gz
 
 BuildRequires:  atomic-devel
+BuildRequires:  glibc-static-devel
 BuildRequires:  lib64atomic-static-devel
 BuildRequires:  stdc++-devel
 BuildRequires:  stdc++-static-devel
