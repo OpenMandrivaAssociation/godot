@@ -6,7 +6,7 @@
 %define demoversion 3.4-b0d4a7c
 
 Name:           godot
-Version:        3.4.4
+Version:        3.5.1
 Release:        1
 Summary:        Multi-platform 2D and 3D game engine with a feature rich editor
 Group:          Development/Tools
