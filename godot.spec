@@ -3,10 +3,10 @@
 
 %define bits    %{__isa_bits}
 %define versuff stable
-%define demoversion 3.4-b0d4a7c
+%define demoversion 3.5-9e68af3
 
 Name:           godot
-Version:        3.5.1
+Version:        4.0.3
 Release:        1
 Summary:        Multi-platform 2D and 3D game engine with a feature rich editor
 Group:          Development/Tools
