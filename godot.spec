@@ -6,7 +6,7 @@
 %define demoversion 3.4-b0d4a7c
 
 Name:           godot
-Version:        3.5.1
+Version:        4.7.1
 Release:        1
 Summary:        Multi-platform 2D and 3D game engine with a feature rich editor
 Group:          Development/Tools
@@ -128,7 +128,7 @@ Use the upstream templates (less secure but more portable) if need be.
 #----------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}-%{version}-%{versuff} -a1
+%setup -q -n godot-4.7.1-stable -a1
 %autopatch -p1
 
 %build
